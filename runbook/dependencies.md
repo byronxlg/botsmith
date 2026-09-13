@@ -1,3 +1,8 @@
+---
+project: botsmith
+reviewed: 2026-09-13
+---
+
 # Dependencies
 
 | dependency | used for | failure looks like | fallback |

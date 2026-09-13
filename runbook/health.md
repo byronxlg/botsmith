@@ -1,3 +1,8 @@
+---
+project: botsmith
+reviewed: 2026-09-13
+---
+
 # Health
 
 | id | check | healthy | where |

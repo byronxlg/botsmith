@@ -1,3 +1,8 @@
+---
+project: botsmith
+reviewed: 2026-09-13
+---
+
 # Recovery
 
 ## The site is down or stale

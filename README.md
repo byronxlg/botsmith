@@ -18,6 +18,11 @@ CSS file, one small JS file, no build step. Deployed to GitHub Pages by
 - Mail: `hello@botsmith.dev` sends through SES (identity in x402-services infra). Inbound
   is Cloudflare Email Routing on the botsmith.dev zone, forwarding to Byron's Gmail.
 
+## Outreach
+
+How prospects are found, contacted and followed up: [outreach/README.md](outreach/README.md).
+Email templates in `outreach/templates.md`, the tracker in `outreach/prospects.md`.
+
 ## Request form
 
 Posts to FormSubmit's hashed endpoint for `hello@botsmith.dev` (activated 2026-09-13;

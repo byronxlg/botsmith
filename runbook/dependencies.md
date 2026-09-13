@@ -10,6 +10,6 @@ reviewed: 2026-09-13
 | GitHub Pages + Actions | hosting and deploy | 404 or stale content | none needed; redeploy |
 | Cloudflare DNS (botsmith.dev zone) | apex, www, previews, mail records | NXDOMAIN, cert errors | x402-services deploy recreates records |
 | Amazon SES ap-southeast-2 | sending as hello@botsmith.dev | `MessageRejected` | send from Byron's Gmail with the botsmith signature |
-| Cloudflare Email Routing | inbound to hello@ | bounces | Reply-To Byron's Gmail |
+| Cloudflare Email Routing | inbound to hello@, forwarded to Byron's Gmail (x402-services `infra/botsmith.tf`) | bounces | Reply-To Byron's Gmail on outbound mail |
 | FormSubmit | request form delivery | form posts succeed but nothing arrives | check activation; the page also shows the email address |
 | x402-services repo CI | the only path that changes botsmith DNS | plan fails | fix there; DNS records persist meanwhile |

@@ -17,25 +17,6 @@ reviewed: 2026-09-13
    deploy workflow (push to its `main`, or `gh workflow run deploy.yml -R byronxlg/x402-services`).
    Never add them by hand in the Cloudflare dashboard.
 
-## A client preview 404s
-
-Same three steps against `byronxlg/<name>`; the CNAME for `<name>.botsmith.dev` must be in
-`botsmith_client_previews` in x402-services `infra/botsmith.tf` and the repo's Pages custom
-domain set to that name.
-
-## A client preview serves no certificate
-
-Symptom: the `<name>.botsmith.dev` host resolves to GitHub but TLS fails with a name mismatch,
-and `gh api repos/byronxlg/<name>/pages` shows `https_certificate.state: null`. Cause: the Pages
-custom domain was set before the CNAME resolved, so GitHub never queued a certificate. Fix
-(2026-09-13, mobile-vehicle-maintenance): clear and re-set the domain, which requeues it:
-`gh api -X PUT repos/byronxlg/<name>/pages --input <(echo '{"cname":null}')`, then
-`gh api -X PUT repos/byronxlg/<name>/pages -f cname=<name>.botsmith.dev`. The state reads
-`approved` within a minute and the host serves within a few more; then
-`gh api -X PUT repos/byronxlg/<name>/pages -F https_enforced=true`. A local `curl` may keep
-saying "Could not resolve host" from a cached negative answer; check with
-`--doh-url https://1.1.1.1/dns-query`.
-
 ## hello@botsmith.dev does not send
 
 H5. Sending is `aws sesv2 send-email --from-email-address "Byron at botsmith <hello@botsmith.dev>"`

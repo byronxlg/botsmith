@@ -1,27 +1,29 @@
-# botsmith.dev
+# botsmith
 
-The botsmith brand site and the "websites for NZ small businesses" offer. Plain HTML, one
-CSS file, one small JS file, no build step. Deployed to GitHub Pages by
-`.github/workflows/pages.yml` on every push to `main`; custom domain `botsmith.dev`
-(`CNAME`), DNS managed in `byronxlg/x402-services` `infra/botsmith.tf`.
+botsmith is Byron's studio. This repo is the company site, https://botsmith.dev/, and the
+index of what the company runs. Plain HTML, one CSS file, one small JS file, no build step.
+Deployed to GitHub Pages by `.github/workflows/pages.yml` on every push to `main`; custom
+domain `botsmith.dev` (`CNAME`).
 
-## The websites service
+## Services
 
-- Offer: free rebuild and hosting for owner-operated NZ businesses with dated sites. Domain
-  registration at cost if they need one. No contract. Upsells later.
-- Pipeline: request (form or hello@botsmith.dev) -> build in a new repo `byronxlg/<name>`
-  from the shorewash pattern -> preview at `<name>.botsmith.dev` (add the name to
-  `botsmith_client_previews` in x402-services `infra/botsmith.tf`, set the Pages custom
-  domain on the repo) -> client edits -> cut their domain over.
-- Previews self-mark `noindex` on github.io hosts; a client preview should carry
-  `<meta name="robots" content="noindex">` until it is on the client's own domain.
-- Mail: `hello@botsmith.dev` sends through SES (identity in x402-services infra). Inbound
-  is Cloudflare Email Routing on the botsmith.dev zone, forwarding to Byron's Gmail.
+| service | what | repo |
+| --- | --- | --- |
+| x402 | pay-per-request APIs for agents (x402, USDC on Base) at x402.botsmith.dev | `byronxlg/x402-services` |
+| websites | free rebuilds and hosting for NZ small businesses, marketed at [/websites/](https://botsmith.dev/websites/), client sites at `<name>.botsmith.dev` | `byronxlg/botsmith-websites` |
 
-## Outreach
+Each service is its own repo with its own Doppler project, Terraform state, deploy identity,
+runbook and management registration, and owns only its own records under botsmith.dev.
 
-How prospects are found, contacted and followed up: [outreach/README.md](outreach/README.md).
-Email templates in `outreach/templates.md`, the tracker in `outreach/prospects.md`.
+## Shared infrastructure
+
+- DNS for the botsmith.dev apex, `www`, and mail, plus the SES identity behind
+  `hello@botsmith.dev`, live in `byronxlg/x402-services` `infra/botsmith.tf` because that zone
+  was first managed there. Change them there, through that repo's GitHub Actions apply. New
+  services add their own records from their own state (the websites service owns
+  `*.botsmith.dev`).
+- Mail: `hello@botsmith.dev` sends through SES. Inbound is Cloudflare Email Routing on the
+  zone, forwarding to Byron's Gmail.
 
 ## Request form
 

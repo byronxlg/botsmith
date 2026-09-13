@@ -15,9 +15,10 @@ or submit the request form. Tier 3 - no data, rebuilt from the repo in one push.
 ## Where it runs
 
 GitHub Pages, deployed by `.github/workflows/pages.yml` on every push to `main`. DNS (apex
-A/AAAA to GitHub, `www` and `<name>.botsmith.dev` preview CNAMEs) and the SES sender identity for
-`hello@botsmith.dev` are managed in `byronxlg/x402-services` `infra/botsmith.tf`. Inbound mail
-for the domain is Cloudflare Email Routing on the botsmith.dev zone.
+A/AAAA to GitHub, `www`) and the SES sender identity for `hello@botsmith.dev` are managed in
+`byronxlg/x402-services` `infra/botsmith.tf`. Inbound mail for the domain is Cloudflare Email
+Routing on the botsmith.dev zone. Client sites at `<name>.botsmith.dev` are the websites
+service, `byronxlg/botsmith-websites`, with its own runbook.
 
 ## Objectives
 
@@ -30,5 +31,5 @@ for the domain is Cloudflare Email Routing on the botsmith.dev zone.
 - [health.md](health.md) - what to check and what healthy looks like.
 - [recovery.md](recovery.md) - Pages, DNS, mail.
 - [dependencies.md](dependencies.md) - GitHub Pages, Cloudflare, SES, FormSubmit.
-- [updates.md](updates.md) - how to change the site and add a client preview.
+- [updates.md](updates.md) - how to change the site.
 - [incidents/](incidents/) - one file per incident.

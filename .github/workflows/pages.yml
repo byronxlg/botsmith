@@ -28,6 +28,7 @@ jobs:
           for f in index.html websites/index.html websites/thanks.html 404.html; do
             for ref in $(grep -o '\(href\|src\)="[^"]*"' "$f" | sed 's/.*="\(.*\)"/\1/' | grep -v '^#' | grep -v '^[a-z]*:' | sed 's/[#?].*//' | sort -u); do
               case "$ref" in /*) t=".$ref";; *) t="$(dirname "$f")/$ref";; esac
+              case "$t" in */) t="${t}index.html";; esac
               [ -f "$t" ] || { echo "$f: missing $ref"; exit 1; }
             done
           done

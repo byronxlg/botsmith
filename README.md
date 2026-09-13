@@ -20,10 +20,10 @@ CSS file, one small JS file, no build step. Deployed to GitHub Pages by
 
 ## Request form
 
-Posts to FormSubmit for `hello@botsmith.dev` (delivered through Email Routing to Byron's
-Gmail). The first submission sends an activation email that must be clicked; after activation
-swap the address in `websites/index.html` for FormSubmit's hashed endpoint so it stays out of
-the page source.
+Posts to FormSubmit's hashed endpoint for `hello@botsmith.dev` (activated 2026-09-13;
+submissions arrive through Email Routing in Byron's Gmail). If the form ever needs a new
+address: put the naked address in the `action`, submit once, click the activation link that
+arrives, then swap in the hash from that email.
 
 ## Example
 

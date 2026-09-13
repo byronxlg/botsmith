@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: "23 20 * * 1"   # weekly: external links rot between pushes
 
 permissions:
   contents: read
@@ -32,9 +34,21 @@ jobs:
               [ -f "$t" ] || { echo "$f: missing $ref"; exit 1; }
             done
           done
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - name: Check external links answer
+        run: |
+          set -e
+          fail=0
+          for u in $(grep -oh 'href="https\?://[^"]*"' index.html websites/index.html websites/thanks.html 404.html | sed 's/href="\(.*\)"/\1/' | sort -u); do
+            code=$(curl -sS -o /dev/null -L -m 20 -A "botsmith-linkcheck" -w '%{http_code}' "$u" || echo 000)
+            case "$code" in 2*|3*) ;; *) echo "BROKEN $code $u"; fail=1;; esac
+          done
+          [ "$fail" = 0 ]
+      - if: github.event_name != 'schedule'
+        uses: actions/configure-pages@v5
+      - if: github.event_name != 'schedule'
+        uses: actions/upload-pages-artifact@v3
         with:
           path: .
-      - id: deployment
+      - if: github.event_name != 'schedule'
+        id: deployment
         uses: actions/deploy-pages@v4

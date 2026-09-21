@@ -1,0 +1,2 @@
+Introducing botsmith: small, sharp software from Auckland.
+x402.botsmith.dev sells market signal to AI agents per call, USDC on Base, no account and no API key.

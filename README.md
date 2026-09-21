@@ -5,6 +5,10 @@ index of what the company runs. Plain HTML, one CSS file, one small JS file, no 
 Deployed to GitHub Pages by `.github/workflows/pages.yml` on every push to `main`; custom
 domain `botsmith.dev` (`CNAME`).
 
+[![botsmith in 20 seconds](https://botsmith.dev/assets/brag.jpg)](https://botsmith.dev/assets/brag.mp4)
+
+The launch video: an agent calls x402.botsmith.dev, pays USDC on Base, gets the answer.
+
 ## Services
 
 | service | what | repo |

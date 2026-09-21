@@ -36,6 +36,9 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); }
 .hero { padding: 72px 0 56px; }
 .hero .kicker { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
 .hero p.lede { font-size: 1.25rem; color: var(--ink-2); max-width: 44ch; }
+.launch { margin: 36px 0 0; max-width: 880px; }
+.launch video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-2); }
+.launch figcaption { margin-top: 10px; font-size: 0.92rem; color: var(--ink-2); }
 .cta { display: inline-block; background: var(--accent); color: #fff; padding: 13px 22px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 8px; }
 .cta:hover { background: var(--accent-2); color: #fff; }
 .cta.ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); margin-left: 8px; }

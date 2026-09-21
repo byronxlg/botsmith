@@ -1,0 +1,5 @@
+composition/node_modules/
+composition/renders/
+composition/snapshots/
+composition/.hyperframes/
+composition/**/.cache/

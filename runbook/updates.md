@@ -1,21 +1,17 @@
 ---
 project: botsmith
-reviewed: 2026-09-13
+reviewed: 2026-09-21
 ---
 
 # Updates
 
 ## Changing the site
 
-PR to `byronxlg/botsmith`, merge when the Pages run is green. Check `/` and `/websites/` at
+PR to `byronxlg/botsmith`, merge when the Pages run is green. Check `/` at
 390px and 1366px before merging; the link-check step in the workflow catches broken local refs.
 
-## Client sites
+## Changing an offer
 
-Adding, changing, retiring a preview and going live on a client domain:
-`byronxlg/botsmith-websites` `runbook/updates.md`. Nothing in this repo changes for a new
-site; the offer page links to one example preview and that link is the only coupling.
+Prices and terms are Byron's decision. Propose the diff, do not merge it.
 
-## Changing the offer
-
-Prices and terms on `/websites/` are Byron's decision. Propose the diff, do not merge it.
+The websites service and its `/websites/` page were shut down 2026-09-21; see README.md.

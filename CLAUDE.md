@@ -5,8 +5,7 @@ Read [README.md](README.md) for the services and [runbook/](runbook/README.md) f
 operations. Registered in `byronxlg/management` as tier 3.
 
 - Services are separate repos: `byronxlg/x402-services` (x402). Work on a service in its
-  repo; this repo only markets them. The websites service (`byronxlg/botsmith-websites`) was
-  shut down 2026-09-21 and its repo archived.
+  repo; this repo only markets them.
 - DNS for the botsmith.dev apex, www and mail, and the SES identity behind
   `hello@botsmith.dev`, live in `byronxlg/x402-services` `infra/botsmith.tf`. Change them
   there, through that repo's GitHub Actions apply, never locally.

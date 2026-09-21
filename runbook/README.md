@@ -8,9 +8,9 @@ reviewed: 2026-09-21
 
 # botsmith runbook
 
-botsmith.dev is a static marketing site for Byron's studio and its free website-rebuild
-offer for NZ small businesses. If it stops, nothing else stops: prospects cannot read the offer
-or submit the request form. Tier 3 - no data, rebuilt from the repo in one push.
+botsmith.dev is a static marketing site for Byron's studio: the company index and the
+launch video. If it stops, nothing else stops: x402.botsmith.dev and the open-source tools
+keep running. Tier 3 - no data, rebuilt from the repo in one push.
 
 ## Where it runs
 

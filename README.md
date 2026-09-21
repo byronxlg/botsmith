@@ -26,11 +26,3 @@ runbook and management registration, and owns only its own records under botsmit
   services add their own records from their own state.
 - Mail: `hello@botsmith.dev` sends through SES. Inbound is Cloudflare Email Routing on the
   zone, forwarding to Byron's Gmail.
-
-## Retired services
-
-- websites (free rebuilds and hosting for NZ small businesses, `byronxlg/botsmith-websites`):
-  shut down 2026-09-21 at Byron's request, repo archived. The `/websites/` offer page and its
-  FormSubmit request form went with it; if a form is ever needed again, put the naked
-  `hello@botsmith.dev` address in the `action`, submit once, click the activation link that
-  arrives, then swap in the hash from that email.

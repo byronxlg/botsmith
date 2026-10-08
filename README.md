@@ -1,22 +1,29 @@
 # botsmith
 
-botsmith is Byron's studio. This repo is the company site, https://botsmith.dev/, and the
-index of what the company runs. Plain HTML, one CSS file, one small JS file, no build step.
+botsmith is Byron's studio. This repo is the company site, https://botsmith.dev/: the landing
+page for everything botsmith makes, with a section per product and the ways an agent connects
+to the paid one. Plain HTML, one CSS file, one small JS file, one vendored font, no build step.
 Deployed to GitHub Pages by `.github/workflows/pages.yml` on every push to `main`; custom
-domain `botsmith.dev` (`CNAME`).
+domain `botsmith.dev` (`CNAME`). The same workflow checks every pull request (local refs,
+external links, and the x402 price list against the live catalog) and runs weekly.
 
 [![botsmith in 20 seconds](https://botsmith.dev/assets/brag.jpg)](https://botsmith.dev/assets/brag.mp4)
 
 The launch video: an agent calls x402.botsmith.dev, pays USDC on Base, gets the answer.
 
-## Services
+## Products on the page
 
-| service | what | repo |
-| --- | --- | --- |
-| x402 | pay-per-request APIs for agents (x402, USDC on Base) at x402.botsmith.dev | `byronxlg/x402-services` |
+| product | what | where | repo |
+| --- | --- | --- | --- |
+| x402 data services | pay-per-call market signal for agents (x402, USDC on Base); listed in the x402 Bazaar, browsable on [Agentic Market](https://agentic.market/services/x402-botsmith-dev) | x402.botsmith.dev | `byronxlg/x402-services` (private) |
+| polymarket-tui | terminal client for Polymarket, open source | polymarket-tui.botsmith.dev | `byronxlg/polymarket-tui` |
+| tryai | try AI models in the browser, free | tryai.byronxlg.com (moving to tryai.botsmith.dev) | `byronxlg/semantic-similarity-app` (private) |
+| skillfold | declarative skill manager for coding agents, open source | byronxlg.com/skillfold | `byronxlg/skillfold` |
 
-Each service is its own repo with its own Doppler project, Terraform state, deploy identity,
-runbook and management registration, and owns only its own records under botsmith.dev.
+Each product is its own repo with its own secrets, Terraform state, deploy identity, runbook and
+management registration, and owns only its own records under botsmith.dev. This repo only
+markets them: a product's facts (routes, prices, install lines) come from the product, and the
+x402 price list is checked against the live catalog by the workflow on every change and weekly.
 
 ## Shared infrastructure
 

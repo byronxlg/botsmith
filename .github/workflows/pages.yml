@@ -3,52 +3,93 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
   schedule:
-    - cron: "23 20 * * 1"   # weekly: external links rot between pushes
+    - cron: "23 20 * * 1"   # weekly: external links rot and catalog prices move between pushes
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  check:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - name: Check local links and assets resolve
         run: |
           set -e
           for f in index.html 404.html; do
-            for ref in $(grep -o '\(href\|src\)="[^"]*"' "$f" | sed 's/.*="\(.*\)"/\1/' | grep -v '^#' | grep -v '^[a-z]*:' | sed 's/[#?].*//' | sort -u); do
+            for ref in $(grep -o '\(href\|src\|poster\)="[^"]*"' "$f" | sed 's/.*="\(.*\)"/\1/' | grep -v '^#' | grep -v '^[a-z]*:' | sed 's/[#?].*//' | sort -u); do
               case "$ref" in /*) t=".$ref";; *) t="$(dirname "$f")/$ref";; esac
               case "$t" in */) t="${t}index.html";; esac
               [ -f "$t" ] || { echo "$f: missing $ref"; exit 1; }
             done
           done
+          for ref in $(grep -o 'url("[^"]*")' assets/site.css | sed 's/url("\(.*\)")/\1/' | sort -u); do
+            [ -f "assets/$ref" ] || { echo "site.css: missing $ref"; exit 1; }
+          done
       - name: Check external links answer
+        # npm's website answers 403 to anything that is not a browser, for real and for
+        # nonexistent packages alike, so a package page is checked through the registry instead.
         run: |
           set -e
           fail=0
           for u in $(grep -oh 'href="https\?://[^"]*"' index.html 404.html | sed 's/href="\(.*\)"/\1/' | sort -u); do
-            code=$(curl -sS -o /dev/null -L -m 20 -A "botsmith-linkcheck" -w '%{http_code}' "$u" || echo 000)
-            case "$code" in 2*|3*) ;; *) echo "BROKEN $code $u"; fail=1;; esac
+            probe="$u"
+            case "$u" in https://www.npmjs.com/package/*) probe="https://registry.npmjs.org/${u#https://www.npmjs.com/package/}";; esac
+            code=$(curl -sS -o /dev/null -L -m 20 --retry 2 -A "Mozilla/5.0 (compatible; botsmith-linkcheck)" -w '%{http_code}' "$probe" || echo 000)
+            case "$code" in 2*|3*) ;; *) echo "BROKEN $code $u (probed $probe)"; fail=1;; esac
           done
           [ "$fail" = 0 ]
-      - if: github.event_name != 'schedule'
-        uses: actions/configure-pages@v5
-      - if: github.event_name != 'schedule'
-        uses: actions/upload-pages-artifact@v3
+      - name: Check prices on the page match the live catalog
+        # Every price the page states sits in an element with data-route and data-price, and
+        # the visible text must equal the attribute. The catalog is the source of truth (prices
+        # are Byron's and move); the page must not drift from it, and the list must carry every
+        # route the catalog has.
+        run: |
+          set -e
+          curl -sSf -m 30 --retry 3 --retry-all-errors --retry-delay 5 https://x402.botsmith.dev/catalog -o /tmp/catalog.json
+          fail=0; pairs=0
+          while read -r route price shown; do
+            pairs=$((pairs+1))
+            [ "$shown" = "$price" ] || { echo "MISMATCH $route: data-price $price but the page shows $shown"; fail=1; }
+            live=$(jq -r --arg p "$route" '[.suites[].services[].routes[] | select(.path == $p) | .price][0] // "missing"' /tmp/catalog.json)
+            [ "$live" = "$price" ] || { echo "DRIFT $route: page says $price, catalog says $live"; fail=1; }
+          done < <(grep -o 'data-route="[^"]*" data-price="[^"]*">[^<]*<' index.html | sed 's/data-route="\([^"]*\)" data-price="\([^"]*\)">\([^<]*\)</\1 \2 \3/')
+          routes=$(jq -r '[.suites[].services[].routes[].path] | length' /tmp/catalog.json)
+          listed=$(grep -o '<td class="route"><code>[A-Z]* /[^<]*</code>' index.html | wc -l | tr -d ' ')
+          echo "pairs checked: $pairs; routes in catalog: $routes; routes listed: $listed"
+          [ "$pairs" -gt "$routes" ] || { echo "GUARD: expected more price pairs than catalog routes (the table plus the hero), got $pairs"; fail=1; }
+          [ "$routes" = "$listed" ] || { echo "ROUTES: catalog has $routes, the price list shows $listed"; fail=1; }
+          [ "$fail" = 0 ]
+
+  deploy:
+    needs: check
+    # Pushes to main deploy; a manual run deploys only when started from main.
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble the site (the page and its assets, not the repo)
+        run: |
+          mkdir -p _site
+          cp index.html 404.html CNAME robots.txt sitemap.xml _site/
+          cp -R assets _site/assets
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
-      - if: github.event_name != 'schedule'
-        id: deployment
+          path: _site
+      - id: deployment
         uses: actions/deploy-pages@v4

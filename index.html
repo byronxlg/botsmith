@@ -4,71 +4,257 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>botsmith | Small, sharp software from Auckland</title>
-  <meta name="description" content="botsmith builds small, well-made software: paid data services for AI agents and open-source tools.">
+  <meta name="description" content="botsmith makes small, well-made software: market data that AI agents pay for per call (x402), a terminal client for Polymarket, a free place to try AI models, and a skill manager for coding agents.">
   <link rel="canonical" href="https://botsmith.dev/">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230f5c4e'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ccircle%20cx='16'%20cy='16'%20r='14'%20fill='%230f5c4e'/%3E%3C/svg%3E">
+  <link rel="preload" href="assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="botsmith">
   <meta property="og:title" content="botsmith | Small, sharp software from Auckland">
-  <meta property="og:description" content="Data services for AI agents and open-source tools.">
+  <meta property="og:description" content="Market data that AI agents pay for per call, a terminal client for Polymarket, a free place to try AI models, and a skill manager for coding agents.">
   <meta property="og:url" content="https://botsmith.dev/">
   <meta property="og:image" content="https://botsmith.dev/assets/brag.jpg">
   <meta property="og:video" content="https://botsmith.dev/assets/brag.mp4">
   <meta property="og:video:type" content="video/mp4">
   <meta property="og:locale" content="en_NZ">
-  <meta name="theme-color" content="#0f5c4e">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#f7f5f0">
   <link rel="stylesheet" href="assets/site.css">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "botsmith",
-  "url": "https://botsmith.dev/",
-  "email": "hello@botsmith.dev",
-  "founder": { "@type": "Person", "name": "Byron Smith" },
-  "address": { "@type": "PostalAddress", "addressLocality": "Auckland", "addressCountry": "NZ" }
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://botsmith.dev/#org",
+      "name": "botsmith",
+      "url": "https://botsmith.dev/",
+      "email": "hello@botsmith.dev",
+      "founder": { "@type": "Person", "name": "Byron Smith" },
+      "address": { "@type": "PostalAddress", "addressLocality": "Auckland", "addressCountry": "NZ" }
+    },
+    {
+      "@type": "ItemList",
+      "name": "What botsmith makes",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "x402 data services", "url": "https://x402.botsmith.dev/" },
+        { "@type": "ListItem", "position": 2, "name": "polymarket-tui", "url": "https://polymarket-tui.botsmith.dev/" },
+        { "@type": "ListItem", "position": 3, "name": "tryai", "url": "https://tryai.byronxlg.com/" },
+        { "@type": "ListItem", "position": 4, "name": "skillfold", "url": "https://byronxlg.com/skillfold/" }
+      ]
+    }
+  ]
 }
   </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
+
   <header class="top">
-    <div class="wrap">
+    <div class="wrap top-row">
       <a class="brand" href="/" aria-current="page"><span class="dot" aria-hidden="true"></span>botsmith</a>
-      <nav class="main" aria-label="Main">
-        <a href="mailto:hello@botsmith.dev">Contact</a>
+      <nav class="nav" aria-label="Main">
+        <a href="#products">Products</a>
+        <a href="#agents">For agents</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
   <main id="main">
-    <section class="hero">
-      <div class="wrap">
-        <p class="kicker">Auckland, New Zealand</p>
-        <h1>Small, sharp software.</h1>
-        <p class="lede">botsmith is Byron Smith's studio.</p>
-        <figure class="launch">
-          <video src="assets/brag.mp4" poster="assets/brag.jpg" width="1920" height="1080" muted autoplay loop playsinline controls preload="metadata"></video>
-          <figcaption>botsmith in 20 seconds: an agent calls, pays USDC on Base, gets the answer.</figcaption>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="place">Auckland, New Zealand</p>
+          <h1 id="hero-title">Small, sharp software.</h1>
+          <p class="lede">Tools for people, and for the agents they run. Built and kept running from Auckland.</p>
+          <div class="actions">
+            <a class="button" href="#products">See the products</a>
+            <a class="button quiet" href="#x402">Data for agents</a>
+          </div>
+        </div>
+
+        <figure class="exchange" aria-labelledby="exchange-caption">
+          <div class="exchange-bar"><span class="exchange-dot" aria-hidden="true"></span>What an agent sees</div>
+          <pre class="exchange-body"><code><span class="line l1"><span class="prompt">$</span> curl https://x402.botsmith.dev/polymarket/markets</span>
+<span class="line l2"><span class="status warn">HTTP 402</span> Payment Required</span>
+<span class="line l3">  price  <span data-route="/polymarket/markets" data-price="$0.02">$0.02</span> USDC on Base</span>
+<span class="line l4"><span class="prompt">$</span> curl <span class="dim">(same request, payment signed)</span></span>
+<span class="line l5"><span class="status ok">HTTP 200</span> OK</span>
+<span class="line l6">  { "markets": [ ... ], "asOf": "<span class="dim">now</span>" }</span></code></pre>
+          <figcaption id="exchange-caption">One call, one price, one answer. No account, no API key, no subscription.</figcaption>
         </figure>
       </div>
     </section>
 
-    <section class="alt">
+    <section id="products" class="index" aria-labelledby="index-title">
       <div class="wrap">
-        <h2>What botsmith runs</h2>
-        <div class="products">
-          <a href="https://x402.botsmith.dev/" rel="noopener"><strong>x402 data services</strong><span>Pay-per-call data endpoints for AI agents, priced in cents.</span></a>
-          <a href="https://polymarket-tui.botsmith.dev/" rel="noopener"><strong>polymarket-tui</strong><span>A terminal client for Polymarket. Open source.</span></a>
-          <a href="https://byronxlg.com/skillfold/" rel="noopener"><strong>skillfold</strong><span>A declarative skill manager for Claude Code and Codex. Open source, on npm.</span></a>
+        <h2 id="index-title">Four things botsmith makes</h2>
+        <ol class="index-list">
+          <li><a href="#x402"><strong>x402 data services</strong><span>Market signal for trading agents, paid per call.</span></a></li>
+          <li><a href="#polymarket-tui"><strong>polymarket-tui</strong><span>Polymarket in your terminal. Open source.</span></a></li>
+          <li><a href="#tryai"><strong>tryai</strong><span>Try AI models in the browser, free.</span></a></li>
+          <li><a href="#skillfold"><strong>skillfold</strong><span>A skill manager for coding agents. Open source.</span></a></li>
+        </ol>
+      </div>
+    </section>
+
+    <article id="x402" class="product" aria-labelledby="x402-title">
+      <div class="wrap product-grid">
+        <div class="product-copy">
+          <p class="product-kind">Paid API, for agents</p>
+          <h2 id="x402-title">x402 data services</h2>
+          <p class="product-sub">Real-time market signal for trading agents.</p>
+          <p>Every endpoint answers the same question: what is the market doing right now. What it is saying on X, what it expects on Polymarket, and what to do about it: a decision model that turns a state and a question into a calibrated probability.</p>
+          <p>An agent calls the URL, gets an HTTP 402 with the price, pays in USDC on Base, and gets JSON back. No account, no API key, no subscription.</p>
+          <div class="actions">
+            <a class="button" href="https://x402.botsmith.dev/">Open x402.botsmith.dev</a>
+            <a class="button quiet" href="https://agentic.market/services/x402-botsmith-dev">On Agentic Market</a>
+          </div>
+          <p class="fine">The <a href="https://x402.botsmith.dev/catalog">machine-readable catalog</a> carries the schema, an example and the price for every route.</p>
+        </div>
+
+        <div class="product-artifact">
+          <table class="prices">
+            <caption>Routes and prices, as in the live catalog</caption>
+            <thead><tr><th scope="col">Route</th><th scope="col" class="num">Per call</th></tr></thead>
+            <tbody>
+              <tr class="group"><th scope="rowgroup" colspan="2">Social signal: what the market is saying</th></tr>
+              <tr><td class="route"><code>GET /x/tweet</code><span>One X post with metrics and entities</span></td><td class="num" data-route="/x/tweet" data-price="$0.015">$0.015</td></tr>
+              <tr><td class="route"><code>GET /x/user</code><span>An X profile: bio, followers, age, verification</span></td><td class="num" data-route="/x/user" data-price="$0.015">$0.015</td></tr>
+              <tr><td class="route"><code>GET /x/search</code><span>Recent X posts with full query syntax</span></td><td class="num" data-route="/x/search" data-price="$0.02">$0.02</td></tr>
+              <tr><td class="route"><code>GET /x/dossier</code><span>Profile, activity analytics and bot-likelihood in one call</span></td><td class="num" data-route="/x/dossier" data-price="$0.05">$0.05</td></tr>
+              <tr><td class="route"><code>GET /x/watchlist</code><span>New high-signal posts from a list of accounts since your last poll</span></td><td class="num" data-route="/x/watchlist" data-price="$0.05">$0.05</td></tr>
+            </tbody>
+            <tbody>
+              <tr class="group"><th scope="rowgroup" colspan="2">Prediction market signal: what the market expects</th></tr>
+              <tr><td class="route"><code>GET /polymarket/markets</code><span>Ranked list of the Polymarket markets worth watching now</span></td><td class="num" data-route="/polymarket/markets" data-price="$0.02">$0.02</td></tr>
+              <tr><td class="route"><code>GET /polymarket/market</code><span>Per-market snapshot with order-book microstructure signals</span></td><td class="num" data-route="/polymarket/market" data-price="$0.02">$0.02</td></tr>
+            </tbody>
+            <tbody>
+              <tr class="group"><th scope="rowgroup" colspan="2">Decision signal: what to do about it</th></tr>
+              <tr><td class="route"><code>POST /jev/decide</code><span>A state and typed questions, answered with calibrated probabilities (TypeSafe's Jev)</span></td><td class="num" data-route="/jev/decide" data-price="$0.005">$0.005</td></tr>
+            </tbody>
+          </table>
+          <p class="fine">Prices in USD, settled in USDC on Base. This list is checked against the catalog on every change and weekly.</p>
+        </div>
+      </div>
+
+      <div id="agents" class="connect">
+        <div class="wrap">
+          <h3 class="connect-title">Three ways to connect an agent</h3>
+          <div class="ways">
+            <div class="way">
+              <h4>From any HTTP client</h4>
+              <p>Read the catalog, call a route, pay the 402. The <a href="https://github.com/coinbase/x402">x402 client libraries</a> sign the payment for you.</p>
+              <pre><code>curl https://x402.botsmith.dev/catalog</code></pre>
+            </div>
+            <div class="way">
+              <h4>As MCP tools</h4>
+              <p>The <a href="https://www.npmjs.com/package/botsmith-mcp">botsmith-mcp</a> server reads the catalog when it starts and exposes each route as a tool, paying per call from a wallet you control. Works with Claude Desktop, Claude Code and any MCP client.</p>
+              <pre><code>{
+  "mcpServers": {
+    "botsmith": {
+      "command": "npx",
+      "args": ["-y", "botsmith-mcp"],
+      "env": {
+        "BOTSMITH_PRIVATE_KEY": "0x..."
+      }
+    }
+  }
+}</code></pre>
+            </div>
+            <div class="way">
+              <h4>Through the Bazaar</h4>
+              <p>Every route in the catalog is indexed in the x402 Bazaar, Coinbase's discovery layer, so an agent that searches it finds botsmith on its own. Humans can browse the same listing on <a href="https://agentic.market/services/x402-botsmith-dev">Agentic Market</a>. Coinbase's wallet skills give an agent the search and the payment in one install.</p>
+              <pre><code>npx skills add <span class="nowrap">coinbase/agentic-wallet-skills</span></code></pre>
+            </div>
+          </div>
+          <figure class="launch">
+            <video src="assets/brag.mp4" poster="assets/brag.jpg" width="1920" height="1080" controls playsinline preload="none"></video>
+            <figcaption>botsmith in 20 seconds: an agent calls, pays USDC on Base, gets the answer. Music only, no narration.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </article>
+
+    <article id="polymarket-tui" class="product" aria-labelledby="tui-title">
+      <div class="wrap product-grid">
+        <div class="product-copy">
+          <p class="product-kind">Terminal app, open source</p>
+          <h2 id="tui-title">polymarket-tui</h2>
+          <p class="product-sub">Polymarket in your terminal.</p>
+          <p>Browse markets, watch live order books and trades, chart prices, track your portfolio and P&amp;L, follow traders, and place orders without leaving the terminal. Python, built on Textual, MIT licensed.</p>
+          <pre class="install"><code>uv tool install polymarket-tui</code></pre>
+          <div class="actions">
+            <a class="button" href="https://polymarket-tui.botsmith.dev/">Open polymarket-tui</a>
+            <a class="button quiet" href="https://github.com/byronxlg/polymarket-tui">Source on GitHub</a>
+          </div>
+          <p class="fine">Also on <a href="https://pypi.org/project/polymarket-tui/">PyPI</a> and Homebrew (<code>brew install byronxlg/tap/polymarket-tui</code>).</p>
+        </div>
+        <a class="product-artifact poster" href="https://polymarket-tui.botsmith.dev/" aria-label="polymarket-tui: a live order book in the terminal (opens the product site)">
+          <img src="assets/polymarket-tui.jpg" width="1280" height="720" alt="" loading="lazy">
+        </a>
+      </div>
+    </article>
+
+    <article id="tryai" class="product" aria-labelledby="tryai-title">
+      <div class="wrap product-grid">
+        <div class="product-copy">
+          <p class="product-kind">Web app, free to use</p>
+          <h2 id="tryai-title">tryai</h2>
+          <p class="product-sub">Try AI models in the browser, free.</p>
+          <p>Two tools, no sign-up. The Semantic Similarity Calculator scores how close two texts are in meaning, not in word overlap. Try Jev is a playground for TypeSafe's Jev decision model, free while the sponsored pool lasts.</p>
+          <div class="actions">
+            <a class="button" href="https://tryai.byronxlg.com/">Open tryai</a>
+          </div>
+        </div>
+        <a class="product-artifact poster" href="https://tryai.byronxlg.com/" aria-label="tryai: two sentences scored 71 percent, strongly related (opens the app)">
+          <img src="assets/tryai.jpg" width="1280" height="720" alt="" loading="lazy">
+        </a>
+      </div>
+    </article>
+
+    <article id="skillfold" class="product" aria-labelledby="skillfold-title">
+      <div class="wrap product-grid">
+        <div class="product-copy">
+          <p class="product-kind">Command-line tool, open source</p>
+          <h2 id="skillfold-title">skillfold</h2>
+          <p class="product-sub">A declarative skill manager for Claude Code, Codex and Cursor.</p>
+          <p>Declare the skills your agents use in one YAML file, pin exact revisions in a lockfile, and install them the same way on every machine and for every teammate.</p>
+          <pre class="install"><code>npm install -g skillfold</code></pre>
+          <div class="actions">
+            <a class="button" href="https://byronxlg.com/skillfold/">Read the docs</a>
+            <a class="button quiet" href="https://github.com/byronxlg/skillfold">Source on GitHub</a>
+          </div>
+          <p class="fine">Published on <a href="https://www.npmjs.com/package/skillfold">npm</a>, MIT licensed.</p>
+        </div>
+        <a class="product-artifact poster" href="https://byronxlg.com/skillfold/" aria-label="skillfold: declare, pin, install (opens the docs)">
+          <img src="assets/skillfold.jpg" width="1280" height="720" alt="" loading="lazy">
+        </a>
+      </div>
+    </article>
+
+    <section id="contact" class="about" aria-label="About and contact">
+      <div class="wrap about-grid">
+        <div>
+          <h2 id="about-title">About</h2>
+          <p>botsmith is Byron Smith's studio in Auckland, New Zealand. Everything here is monitored and kept up to date.</p>
+        </div>
+        <div>
+          <h2>Contact</h2>
+          <p><a href="mailto:hello@botsmith.dev">hello@botsmith.dev</a></p>
+          <p class="fine">Elsewhere: <a href="https://github.com/byronxlg">GitHub</a>, <a href="https://blog.byronxlg.com/">the blog</a>, <a href="https://byronxlg.com/">everything Byron runs</a>.</p>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="wrap">
-      <div>botsmith, Auckland. <a href="mailto:hello@botsmith.dev">hello@botsmith.dev</a></div>
+  <footer class="foot">
+    <div class="wrap foot-row">
+      <span>botsmith, Auckland</span>
+      <span><a href="mailto:hello@botsmith.dev">hello@botsmith.dev</a></span>
     </div>
   </footer>
   <script src="assets/site.js"></script>

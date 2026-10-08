@@ -3,13 +3,14 @@ project: botsmith
 tier: 3
 owner: byron
 lifecycle: production
-reviewed: 2026-09-21
+reviewed: 2026-10-08
 ---
 
 # botsmith runbook
 
-botsmith.dev is a static marketing site for Byron's studio: the company index and the
-launch video. If it stops, nothing else stops: x402.botsmith.dev and the open-source tools
+botsmith.dev is a static marketing site for Byron's studio: the landing page for every
+product (x402 data services, polymarket-tui, tryai, skillfold), how an agent connects to x402,
+and the launch video. If it stops, nothing else stops: x402.botsmith.dev and the open-source tools
 keep running. Tier 3 - no data, rebuilt from the repo in one push.
 
 ## Where it runs

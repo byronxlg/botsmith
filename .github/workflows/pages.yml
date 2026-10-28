@@ -87,6 +87,8 @@ jobs:
           mkdir -p _site
           cp index.html 404.html CNAME robots.txt sitemap.xml _site/
           cp -R assets _site/assets
+          # Domain-control proofs (SealKeeper claim); upload-pages-artifact@v3 keeps dotdirs.
+          cp -R .well-known _site/.well-known
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

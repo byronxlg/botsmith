@@ -106,7 +106,7 @@
           <p class="product-kind">Paid API, for agents</p>
           <h2 id="x402-title"><a href="https://x402.botsmith.dev/">x402 data services</a></h2>
           <p class="product-sub">Real-time market signal for trading agents.</p>
-          <p>Every endpoint answers the same question: what is the market doing right now. What it is saying on X, what it expects on Polymarket, and what to do about it: a decision model that turns a state and a question into a calibrated probability.</p>
+          <p>Every endpoint answers the same question: what is the market doing right now. What it is saying on X, what it expects on Polymarket and Kalshi, and what to do about it: a decision model that turns a state and a question into a calibrated probability.</p>
           <p>An agent calls the URL, gets an HTTP 402 with the price, pays in USDC on Base, and gets JSON back. No account, no API key, no subscription.</p>
           <div class="actions">
             <a class="button" href="https://x402.botsmith.dev/">Open x402.botsmith.dev</a>
@@ -139,6 +139,8 @@
               <tr><td class="route"><code>GET /polymarket/markets</code><span>Ranked list of the Polymarket markets worth watching now</span></td><td class="num" data-route="/polymarket/markets" data-price="$0.02">$0.02</td></tr>
               <tr><td class="route"><code>GET /polymarket/market</code><span>Per-market snapshot with order-book microstructure signals</span></td><td class="num" data-route="/polymarket/market" data-price="$0.02">$0.02</td></tr>
               <tr><td class="route"><code>GET /polymarket/chatter</code><span>A market's odds beside what X says about it, and the gap between them</span></td><td class="num" data-route="/polymarket/chatter" data-price="$0.03">$0.03</td></tr>
+              <tr><td class="route"><code>GET /kalshi/markets</code><span>Search open Kalshi markets by series, event or keyword, busiest first</span></td><td class="num" data-route="/kalshi/markets" data-price="$0.01">$0.01</td></tr>
+              <tr><td class="route"><code>GET /kalshi/market</code><span>One Kalshi market: prices, volume and an order book summary</span></td><td class="num" data-route="/kalshi/market" data-price="$0.01">$0.01</td></tr>
             </tbody>
             <tbody>
               <tr class="group"><th scope="rowgroup" colspan="2">Decision signal: what to do about it</th></tr>
